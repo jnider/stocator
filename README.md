@@ -2,7 +2,7 @@ Stocator - Storage Connector for Apache Spark
 ==============================
 Apache Spark can work with multiple data sources that include object stores like Amazon S3, OpenStack Swift, IBM SoftLayer, and more. To access an object store, Spark uses Hadoop modules that contain drivers to the various object stores. 
 
-Spark needs only small set of object store functionalities. Specifically, Spark requires object listing, objects creation, read objects, and getting data partitions. Hadoop drivers, however, must be compliant with the Hadoop eco system. This means they support many more operations, such as shell operations on directories, including move, copy, rename, etc. (these are not native object store operations). Moreover, Hadoop Map Reduce Client is designed to work with file systems and not object stores. The temp files and folders it uses for every write operation are renamed, copied, and deleted. This leads to dozens of useless requests targeted at the object store. It’s clear that Hadoop is designed to work with file systems and not object stores.
+Spark needs only a small set of object store functionality. Specifically, Spark requires object listing, objects creation, read objects, and getting data partitions. Hadoop drivers, however, must be compliant with the Hadoop eco system. This means they support many more operations, such as shell operations on directories, including move, copy, rename, etc. (these are not native object store operations). Moreover, Hadoop Map Reduce Client is designed to work with file systems and not object stores. The temp files and folders it uses for every write operation are renamed, copied, and deleted. This leads to dozens of useless requests targeted at the object store. It’s clear that Hadoop is designed to work with file systems and not object stores.
 
 Stocator is implicitly designed for the object stores, it has very a different architecture from the existing Hadoop driver. It doesn’t depends on robust Hadoop modules and interacts directly with object stores. 
 
@@ -156,8 +156,8 @@ the properties below with the correspondent values :
 	    <value>dallas</value>
 	</property>
 
-## Providing configuration keys in run time
-It's possible to provide configuration keys in run time, without keeping them in core-sites.xml. Just use SparkContext variable with
+## Providing configuration keys at run time
+It's possible to provide configuration keys at run time, without keeping them in core-sites.xml. Just use SparkContext variable with
 
 	sc.hadoopConfiguration.set("KEY","VALUE")
 
@@ -192,13 +192,13 @@ Both main `pom.xml` and `core/pom.xml` should be modified.
 	
 	
 ### Compile Spark
-Compile Spark with Haddop support 
+Compile Spark with Hadoop support 
 
 	mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -DskipTests package
 
 	
 ### Examples
-#### Create new object in Swift.
+#### Create new object in Swift
 
 	val data = Array(1, 2, 3, 4, 5, 6, 7, 8)
 	val distData = sc.parallelize(data)
